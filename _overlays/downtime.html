@@ -1,0 +1,90 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="css/style.css">
+        <script src="js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/greensock-js/src/minified/TweenMax.min.js" type="text/javascript" charset="utf-8"></script>
+    </head>
+
+    <body>
+        <div id="dTimeWrapper">
+            <span id="dTimeText"></span>
+            <span id="timer"></span>
+        </div>
+    </body>
+
+    <script>
+        var streamJSON = "../sc/streamcontrol.json";
+        var xhttp = new XMLHttpRequest();
+        var fresh = true;
+        var scValues;
+        var timerTarget;
+
+        xhttp.overrideMimeType('application/json');
+        xhttp.onreadystatechange = parseJSON;
+
+        scUpdate();
+        setInterval(function(){scUpdate()}, 1000);
+
+        function scUpdate() {
+            xhttp.open('GET',streamJSON,true);
+            xhttp.send();
+        }
+
+        function parseJSON() {
+            if (xhttp.readyState === 4) {
+                scValues = JSON.parse(xhttp.responseText);
+                downtime();
+            }
+        }
+
+        function downtime() {
+            getText();
+            timerCheck();
+            getTarget();
+            getTimer();
+        }
+
+        function getTarget() {
+            timerLength = scValues["timerLength"];
+            timerStart = scValues["timerStart"];
+
+            var timeArray = timerLength.split(":");
+            timerTarget = new Date((timerStart * 1000) + (timeArray[0] * 1000 * 60) + (timeArray[1] * 1000));
+        }
+
+        function getTimer() {
+            var current = new Date();
+            var remainder = timerTarget - current;
+            if (remainder <= 0) {
+                $("#timer").html("0:00");
+            }
+            else {
+                $("#timer").html(getCountdown(remainder));
+            }
+        }
+
+        function getCountdown(x) {
+            var minutes = Math.floor(x / (60 * 1000) % 60);
+            var seconds = "0" + Math.floor(x / 1000 % 60);
+            var countdown = minutes + ':' + seconds.slice(-2);
+            return countdown;
+        }
+
+        function getText() {
+            var dTimeText = scValues["dTimeText"];
+            $("#dTimeText").html(dTimeText);
+        }
+
+        function timerCheck() {
+            var showTimer = scValues["showTimer"];
+            if (showTimer == 1){
+                $("#timer").fadeIn(1000);
+            }
+            else if (showTimer == 0) {
+                $("#timer").fadeOut(1000);
+            }
+        }
+
+    </script>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE StreamControlLayout>
+<layout width="400" height="210" tabbed="1">
+ <tab name="Match Info">
+  <label x="10" y="14" width="46" height="13">Player 1</label>
+  <label x="10" y="44" width="46" height="13">Player 2</label>
+  <label x="10" y="74" width="46" height="13">Round</label>
+  <label x="10" y="104" width="46" height="13">Game</label>
+  <lineEdit id="p1Name" x="60" y="10" width="120" height="20" dataSet="players.csv" dataField="1" />
+  <lineEdit id="p1Team" x="186" y="10" width="60" height="20" dataSet="players.csv" dataField="2" master="p1Name" />
+  <lineEdit id="p1Country" x="252" y="10" width="60" height="20" dataSet="players.csv" dataField="3" master="p1Name" />
+  <spinBox id="p1Score" x="318" y="9" width="60" height="25" maximum="99" />
+  <lineEdit id="p2Name" x="60" y="40" width="120" height="20" dataSet="players.csv" dataField="1"  />
+  <lineEdit id="p2Team" x="186" y="40" width="60" height="20" dataSet="players.csv" dataField="2" master="p2Name" />
+  <lineEdit id="p2Country" x="252" y="40" width="60" height="20" dataSet="players.csv" dataField="3" master="p2Name" />
+  <spinBox id="p2Score" x="318" y="39" width="60" height="25" maximum="99" />
+  <comboBox id="round" editable="1" x="60" y="70" width="120" height="20">
+  <comboItem>Exhibition</comboItem>
+  <comboItem>Tournament</comboItem>
+  <comboItem>Top 8</comboItem>
+  <comboItem>Winners Semifinal</comboItem>
+  <comboItem>Winners Final</comboItem>
+  <comboItem>Losers Semifinals</comboItem>
+  <comboItem>Losers Finals</comboItem>
+  <comboItem>Grand Finals</comboItem>
+  <comboItem>Grand Finals (reset)</comboItem>
+  </comboBox>
+  <button type="swap" x="186" y="70" width="60" height="23" tooltip="Swap the Scores" id="swap1" swapSet1="p1Name,p1Team,p1Score,p1Country" swapSet2="p2Name,p2Team,p2Score,p2Country">Swap</button>
+  <button type="reset" x="252" y="70" width="60" height="23" tooltip="Reset the Scores" id="reset1" reset="p1Score,p2Score">Reset</button>
+  <button type="reset" x="318" y="70" width="60" height="23" tooltip="Clear Match Info" id="reset2" reset="p1Name,p1Team,p1Score,p1Country,p2Name,p2Team,p2Score,p2Country">Clear</button>
+  <comboBox id="game" editable="1" x="60" y="100" width="120" height="20">
+   <comboItem>UNI2</comboItem>
+   <comboItem>MBTL</comboItem>
+   <comboItem>BBCF</comboItem>
+   <comboItem>GGST</comboItem>
+   <comboItem>TEKKEN8</comboItem>
+  </comboBox>
+ </tab>
+ <tab name="Commentary">
+  <label x="10" y="14" width="46" height="13">Title 1</label>
+  <label x="10" y="44" width="46" height="13">Title 2</label>
+  <lineEdit id="cTitle1" x="60" y="10" width="321" height="20" />
+  <lineEdit id="cTitle2" x="60" y="40" width="321" height="20" />
+ </tab>
+ <tab name="Downtime">
+  <label x="10" y="14" width="46" height="13">Text</label>
+  <lineEdit id="dTimeText" x="60" y="10" width="321" height="20" />
+  <label x="10" y="44" width="46" height="13">Downtime</label>
+  <comboBox id="timerLength" x="60" y="40" width="80" height="20" editable="1">
+   <comboItem>1:00</comboItem>
+   <comboItem selected="1">3:00</comboItem>
+   <comboItem>5:00</comboItem>
+   <comboItem>10:00</comboItem>
+   <comboItem>15:00</comboItem>
+  </comboBox>
+  <checkBox id="showTimer" x="150" y="40" width="80" height="20">Show Timer</checkBox>
+  <button type="timestamp" id="timerStart" x="240" y="40" width="80" height="20" saveonclick="1">Start Timer</button>
+ </tab>
+</layout>
